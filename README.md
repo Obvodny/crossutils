@@ -8,3 +8,5 @@ CrossBox is currently under active development. Below is a list of the utilities
 
 - true
 - false
+- echo
+- basename
