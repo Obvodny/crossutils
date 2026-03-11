@@ -48,20 +48,19 @@ int main(int argc, char *argv[]) {
         "Unsupported Type. std::filesystem::path::value_type should be char or wchar_t."
     );
 
-    wchar_t *wchar_path = nullptr;
-    wchar_t wchar_seperator = L'\0';
-
     size_t char_path_len = std::strlen(argv[1]);
     size_t wchar_path_size = 2 * char_path_len + 1;
-    wchar_path = reinterpret_cast<wchar_t *>(std::calloc(wchar_path_size, sizeof(wchar_t)));
-    size_t len = std::mbstowcs(wchar_path, argv[1], wchar_path_size);
-    wchar_seperator = to_wchar(std::filesystem::path::preferred_separator);
+
+    std::unique_ptr<wchar_t []> wchar_path {new wchar_t[wchar_path_size]};
+    size_t len = std::mbstowcs(wchar_path.get(), argv[1], wchar_path_size);
+
+    wchar_t preferred_separator = to_wchar(std::filesystem::path::preferred_separator);
 
     std::size_t end;
-    if (is_separator(wchar_path[len - 1], wchar_seperator)) {
+    if (is_separator(wchar_path[len - 1], preferred_separator)) {
         end = len - 1;
         while(end >= 1) {
-            if (is_separator(wchar_path[end - 1], wchar_seperator)) {
+            if (is_separator(wchar_path[end - 1], preferred_separator)) {
                 end--;
             }
             else {
@@ -73,58 +72,49 @@ int main(int argc, char *argv[]) {
     }
 
     if (end == 0) {
-        std::wcout << wchar_seperator << std::endl;
+        std::wcout << preferred_separator << std::endl;
         return 0;
     }
 
     std::size_t begin = end - 1;
     while(begin >= 1) {
-        if (wchar_path[begin - 1] == L'/' || wchar_path[begin - 1] == wchar_seperator) {
+        if (wchar_path[begin - 1] == L'/' || wchar_path[begin - 1] == preferred_separator) {
             break;
         }
         begin--;
     }
 
-    if (argc == 2) {
-        std::wcout.write(wchar_path + begin, end - begin) << std::endl;
-        return 0;
-    }
+    if (argc >= 3) {
+        size_t char_suffix_len = std::strlen(argv[2]);
+        size_t wchar_suffix_size = 2 * char_suffix_len + 1;
+        std::unique_ptr<wchar_t[]> wchar_suffix {new wchar_t[wchar_suffix_size]};
 
-    wchar_t *wchar_suffix = nullptr;
-    size_t char_suffix_len = std::strlen(argv[2]);
-    size_t wchar_suffix_size = 2 * char_suffix_len + 1;
-    wchar_suffix = reinterpret_cast<wchar_t *>(std::calloc(wchar_path_size, sizeof(wchar_t)));
-    size_t suffix_len = std::mbstowcs(wchar_suffix, argv[2], wchar_suffix_size);
+        size_t suffix_len = std::mbstowcs(wchar_suffix.get(), argv[2], wchar_suffix_size);
 
-    if (end < begin + suffix_len) {
-        std::wcout.write(wchar_path + begin, end - begin) << std::endl;
-        return 0;
-    }
-
-    size_t pidx = end - 1; // path index
-    size_t sidx = suffix_len - 1; // suffix index
-    bool match_suffix = true;
-    while(pidx <= end && pidx >= begin) {
-        if (wchar_path[pidx] == wchar_suffix[sidx]) {
-            if (sidx == 0) {
-                break;
+        if (end >= begin + suffix_len) {
+            size_t pidx = end - 1; // path index
+            size_t sidx = suffix_len - 1; // suffix index
+            bool match_suffix = true;
+            while(pidx <= end && pidx >= begin) {
+                if (wchar_path[pidx] == wchar_suffix[sidx]) {
+                    if (sidx == 0) {
+                        break;
+                    }
+                }
+                else {
+                    match_suffix = false;
+                    break;
+                }
+                pidx--;
+                sidx--;
+            }
+            if (match_suffix && (pidx != begin)) {
+                end = pidx;
             }
         }
-        else {
-            match_suffix = false;
-            break;
-        }
-        pidx--;
-        sidx--;
     }
 
-    if (match_suffix) {
-        std::wcout.write(wchar_path + begin, pidx - begin) << std::endl;
-    }
-    else {
-        std::wcout.write(wchar_path + begin, end - begin) << std::endl;
-    }
-
+    std::wcout.write(&wchar_path[begin], end - begin) << std::endl;
     return 0;
 }
 

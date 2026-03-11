@@ -42,6 +42,12 @@ target("basename")
         plain = true,
         pass_outputs = "数据处理abc2\n",
     })
+    add_tests("test_basename_match_all", {
+        runargs = {"./compiler/analyzer.cpp///", "analyzer.cpp"},
+        trim_output = false,
+        plain = true,
+        pass_outputs = "analyzer.cpp\n",
+    })
     add_tests("test_basename_not_match_0", {
         runargs = {"c:/Music_Beethoven.mp3///", ".md"},
         trim_output = false,
