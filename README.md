@@ -4,7 +4,7 @@ CrossBox is a collection of UNIX ([POSIX][posix.1-2024]) utilities, written with
 
 ## Introduction
 
-UNIX utilities - such as `ls`, `cat`, `cp` - are the essential tools for UNIX shell environment. While well-established implementations like [GNU coreutils][gnu-coreutils], [Uutils][uutils], [BusyBox][busybox] and [toybox][toybox] exist, CrossBox sets itself apart with a specific goal: **implementation using only the C++ Standard Library**.
+UNIX utilities -- such as `ls`, `cat`, `cp` -- are the essential tools for UNIX shell environment. While well-established implementations like [GNU coreutils][gnu-coreutils], [Uutils][uutils], [BusyBox][busybox] and [toybox][toybox] exist, CrossBox sets itself apart with a specific goal: **implementation using only the C++ Standard Library**.
 
 By avoiding conditional compilation and system-specific dependencies, CrossBox achieves excellent portability. It can run on Linux, Windows, MacOS, or any other system with a compliant C++ compiler. This project also serves as an exploration of the limits of pure standard C/C++.
 
@@ -18,7 +18,7 @@ Secondly, this project provides a practical playground to experiment with modern
 
 CrossBox is currently under active development.
 
-### Current Features In v0.0.1
+### Current Features in v0.0.1
 
 - [x] basename
 - [ ] cal
@@ -28,7 +28,7 @@ CrossBox is currently under active development.
 - [x] false
 - [x] true
 
-### Planned Features In v0.0.2+
+### Planned Features in v0.0.2+
 
 - cd
 - cmp
@@ -54,12 +54,12 @@ CrossBox uses [Xmake][xmake] as its building system.
 xmake
 ```
 
-**Build a specific utility (replace <util> with its name)**:
+**Build a specific utility (replace `<util>` with its name)**:
 ```bash
 xmake build <util>
 ```
 
-**Run tests**
+**Run tests**:
 ```bash
 xmake test
 ```
@@ -84,3 +84,4 @@ xmake pack
 [busybox]: https://busybox.net/
 [toybox]: https://landley.net/toybox/
 [xmake]: https://xmake.io/
+

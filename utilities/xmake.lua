@@ -61,7 +61,6 @@ target("basename")
         pass_outputs = "Music_Beethoven.mp3\n",
     })
 
-
 target("echo")
     set_kind("binary")
     add_files("echo/*.cpp")

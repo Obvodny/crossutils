@@ -115,6 +115,7 @@ int main(int argc, char *argv[]) {
     }
 
     std::wcout.write(&wchar_path[begin], end - begin) << std::endl;
+
     return 0;
 }
 
