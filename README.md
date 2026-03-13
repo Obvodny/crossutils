@@ -1,22 +1,22 @@
-# CrossBox
+# Crossutils
 
-CrossBox is a collection of UNIX ([POSIX][posix.1-2024]) utilities, written with modern C/C++.
+Crossutils is a collection of UNIX ([POSIX][posix.1-2024]) utilities, written with modern C/C++.
 
 ## Introduction
 
-UNIX utilities -- such as `ls`, `cat`, `cp` -- are the essential tools for UNIX shell environment. While well-established implementations like [GNU coreutils][gnu-coreutils], [Uutils][uutils], [BusyBox][busybox] and [toybox][toybox] exist, CrossBox sets itself apart with a specific goal: **implementation using only the C++ Standard Library**.
+UNIX utilities -- such as `ls`, `cat`, `cp` -- are the essential tools for UNIX shell environment. While well-established implementations like [GNU coreutils][gnu-coreutils], [Uutils][uutils], [BusyBox][busybox] and [toybox][toybox] exist, Crossutils sets itself apart with a specific goal: **implementation using only the C++ Standard Library**.
 
-By avoiding conditional compilation and system-specific dependencies, CrossBox achieves excellent portability. It can run on Linux, Windows, MacOS, or any other system with a compliant C++ compiler. This project also serves as an exploration of the limits of pure standard C/C++.
+By avoiding conditional compilation and system-specific dependencies, Crossutils achieves excellent portability. It can run on Linux, Windows, MacOS, or any other system with a compliant C++ compiler. This project also serves as an exploration of the limits of pure standard C/C++.
 
 ## Motivation
 
-The primary motivation for CrossBox is to bring the UNIX command-line experience to Windows, an environment I enjoy working in.
+The primary motivation for Crossutils is to bring the UNIX command-line experience to Windows, an environment I enjoy working in.
 
 Secondly, this project provides a practical playground to experiment with modern C++ standards, especially the `<filesystem>` library introduced in C++17/20.
 
 ## Progress and Roadmap
 
-CrossBox is currently under active development.
+Crossutils is currently under active development.
 
 ### Current Features in v0.0.1
 
@@ -47,7 +47,7 @@ CrossBox is currently under active development.
 
 ## Building
 
-CrossBox uses [Xmake][xmake] as its building system.
+Crossutils uses [Xmake][xmake] as its building system.
 
 **Build all utilities**:
 ```bash

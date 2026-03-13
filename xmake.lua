@@ -10,8 +10,8 @@ includes("@builtin/xpack")
 
 xpack("crossbox")
     set_formats("nsis", "wix", "zip", "deb", "rpm")
-    set_title("CrossBox")
+    set_title("Crossutils")
     set_author("Obvodny")
-    set_description("CrossBox is a collection of cross-platform UNIX(POSIX) utilities.")
+    set_description("Crossutils is a collection of cross-platform UNIX (POSIX) utilities.")
     add_targets("basename", "echo", "false", "true")
 
