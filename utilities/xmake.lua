@@ -1,5 +1,6 @@
 target("basename")
     set_kind("binary")
+    add_deps("common")
     add_files("basename/*.cpp")
     add_tests("test_basename_0", {
         trim_output = false,
