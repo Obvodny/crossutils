@@ -17,20 +17,7 @@
  */
 
 import std;
-
-wchar_t to_wchar(char ch) {
-    wchar_t wch = L'\0';
-    std::mbtowc(&wch, &ch, 1);
-    return wch;
-}
-
-wchar_t to_wchar(wchar_t wch) {
-    return wch;
-}
-
-bool is_separator(wchar_t wch, wchar_t wchar_preferred_separator) {
-    return wch == L'/' || wch == wchar_preferred_separator;
-}
+import crossutils;
 
 int main(int argc, char *argv[]) {
 
@@ -42,25 +29,13 @@ int main(int argc, char *argv[]) {
         return 0;
     }
 
-    using path_char_t = std::filesystem::path::value_type;
-    static_assert(
-        std::is_same_v<path_char_t, char> || std::is_same_v<path_char_t, wchar_t>, 
-        "Unsupported Type. std::filesystem::path::value_type should be char or wchar_t."
-    );
-
-    size_t char_path_len = std::strlen(argv[1]);
-    size_t wchar_path_size = 2 * char_path_len + 1;
-
-    std::unique_ptr<wchar_t []> wchar_path {new wchar_t[wchar_path_size]};
-    size_t len = std::mbstowcs(wchar_path.get(), argv[1], wchar_path_size);
-
-    wchar_t preferred_separator = to_wchar(std::filesystem::path::preferred_separator);
+    auto [wchar_path, wchar_path_len] = crossutils::mbs_to_wcs(argv[1]);
 
     std::size_t end;
-    if (is_separator(wchar_path[len - 1], preferred_separator)) {
-        end = len - 1;
+    if (crossutils::is_separator(wchar_path[wchar_path_len - 1])) {
+        end = wchar_path_len - 1;
         while(end >= 1) {
-            if (is_separator(wchar_path[end - 1], preferred_separator)) {
+            if (crossutils::is_separator(wchar_path[end - 1])) {
                 end--;
             }
             else {
@@ -68,29 +43,25 @@ int main(int argc, char *argv[]) {
             }
         }
     } else {
-        end = len;
+        end = wchar_path_len;
     }
 
     if (end == 0) {
-        std::wcout << preferred_separator << std::endl;
+        crossutils::output_preferred_seperator();
+        std::wcout << std::endl;
         return 0;
     }
 
     std::size_t begin = end - 1;
     while(begin >= 1) {
-        if (wchar_path[begin - 1] == L'/' || wchar_path[begin - 1] == preferred_separator) {
+        if (crossutils::is_separator(wchar_path[begin - 1])) {
             break;
         }
         begin--;
     }
 
     if (argc >= 3) {
-        size_t char_suffix_len = std::strlen(argv[2]);
-        size_t wchar_suffix_size = 2 * char_suffix_len + 1;
-        std::unique_ptr<wchar_t[]> wchar_suffix {new wchar_t[wchar_suffix_size]};
-
-        size_t suffix_len = std::mbstowcs(wchar_suffix.get(), argv[2], wchar_suffix_size);
-
+        auto [wchar_suffix, suffix_len] = crossutils::mbs_to_wcs(argv[2]);
         if (end >= begin + suffix_len) {
             size_t pidx = end - 1; // path index
             size_t sidx = suffix_len - 1; // suffix index

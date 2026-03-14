@@ -4,6 +4,11 @@ set_languages("c++23")
 add_rules("mode.debug", "mode.release")
 set_policy("build.c++.modules", true)
 
+target("common")
+    set_kind("static")
+    add_files("common/*.cpp")
+    add_files("common/*.mpp", {public = true})
+
 includes("utilities")
 
 includes("@builtin/xpack")
