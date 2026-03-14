@@ -13,7 +13,7 @@ includes("utilities")
 
 includes("@builtin/xpack")
 
-xpack("crossbox")
+xpack("Crossutils")
     set_formats("nsis", "wix", "zip", "deb", "rpm")
     set_title("Crossutils")
     set_author("Obvodny")
