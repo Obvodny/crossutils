@@ -18,29 +18,22 @@ Secondly, this project provides a practical playground to experiment with modern
 
 Crossutils is currently under active development.
 
-### Current Features in v0.0.1
+### Current Features (v0.0.1)
 
 - [x] basename
-- [ ] cal
 - [ ] cat
 - [ ] dirname
 - [x] echo
 - [x] false
 - [x] true
 
-### Planned Features in v0.0.2+
+### Planned Features
 
-- cd
-- cmp
-- cp
-- cut
-- date
-- du
+- cd, cmp, cp, cut
+- date, du
 - env
-- hash
-- head
-- mkdir
-- mv
+- hash, head
+- mkdir, mv
 - pwd
 - rm
 - tail
@@ -48,6 +41,8 @@ Crossutils is currently under active development.
 ## Building
 
 Crossutils uses [Xmake][xmake] as its building system.
+
+To build the project, you need xmake and a C++23 compliant compilor.
 
 **Build all utilities**:
 ```bash
