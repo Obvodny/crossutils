@@ -60,9 +60,35 @@ bool is_separator(wchar_t wch) {
     return wch == L'/' || wch == wchar_preferred_separator;
 }
 
-void output_preferred_seperator() {
+wchar_t get_wchar_preferred_seperator() {
     ensure_wchar_preferred_separator();
-    std::wcout << wchar_preferred_separator;
+    return wchar_preferred_separator;
+}
+
+size_t cut_trailing_separator(const wchar_t path[], size_t end) {
+    size_t last = end;
+    while(last >= 1) {
+        if (crossutils::is_separator(path[last - 1])) {
+            last--;
+        }
+        else {
+            break;
+        }
+    }
+    return last;
+}
+
+size_t cut_after_last_separator(const wchar_t path[], size_t end) {
+    size_t last = end;
+    while(last >= 1) {
+        if (crossutils::is_separator(path[last - 1])) {
+            break;
+        }
+        else {
+            last--;
+        }
+    }
+    return last;
 }
 
 }

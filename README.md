@@ -22,7 +22,7 @@ Crossutils is currently under active development.
 
 - [x] basename
 - [ ] cat
-- [ ] dirname
+- [x] dirname
 - [x] echo
 - [x] false
 - [x] true

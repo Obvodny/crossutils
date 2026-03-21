@@ -31,34 +31,15 @@ int main(int argc, char *argv[]) {
 
     auto [wchar_path, wchar_path_len] = crossutils::mbs_to_wcs(argv[1]);
 
-    std::size_t end;
-    if (crossutils::is_separator(wchar_path[wchar_path_len - 1])) {
-        end = wchar_path_len - 1;
-        while(end >= 1) {
-            if (crossutils::is_separator(wchar_path[end - 1])) {
-                end--;
-            }
-            else {
-                break;
-            }
-        }
-    } else {
-        end = wchar_path_len;
-    }
+    size_t end = crossutils::cut_trailing_separator(wchar_path.get(), wchar_path_len);
 
     if (end == 0) {
-        crossutils::output_preferred_seperator();
+        std::wcout << crossutils::get_wchar_preferred_seperator();
         std::wcout << std::endl;
         return 0;
     }
 
-    std::size_t begin = end - 1;
-    while(begin >= 1) {
-        if (crossutils::is_separator(wchar_path[begin - 1])) {
-            break;
-        }
-        begin--;
-    }
+    size_t begin = crossutils::cut_after_last_separator(wchar_path.get(), end);
 
     if (argc >= 3) {
         auto [wchar_suffix, suffix_len] = crossutils::mbs_to_wcs(argv[2]);

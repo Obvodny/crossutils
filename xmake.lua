@@ -14,9 +14,9 @@ includes("utilities")
 includes("@builtin/xpack")
 
 xpack("Crossutils")
-    set_formats("nsis", "wix", "zip", "deb", "rpm")
+    set_formats("nsis", "wix", "zip", "deb", "rpm", "dmg")
     set_title("Crossutils")
     set_author("Obvodny")
     set_description("Crossutils is a collection of cross-platform UNIX (POSIX) utilities.")
-    add_targets("basename", "echo", "false", "true")
+    add_targets("basename", "dirname", "echo", "false", "true")
 

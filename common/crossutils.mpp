@@ -24,6 +24,8 @@ export namespace crossutils {
 
 std::pair<std::unique_ptr<wchar_t []>, size_t> mbs_to_wcs(char source[]);
 bool is_separator(wchar_t wch);
-void output_preferred_seperator();
+wchar_t get_wchar_preferred_seperator();
+size_t cut_trailing_separator(const wchar_t path[], size_t end);
+size_t cut_after_last_separator(const wchar_t path[], size_t end);
 
 }
